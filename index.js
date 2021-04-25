@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const Departments = require('./departments');
 const Employee = require('./employees');
+const Role = require('./roles');
 
 
 
@@ -47,7 +48,15 @@ const selection=()=> {
                         getDep()
                     break;
                     case 'Add Roles':
-                        
+                        table='emp_role'
+                        type="Add"
+                        const getRole= async()=>{
+                            const newRole= new Role
+                            const getNewRole= await newRole.getRoleInfo();
+                            returnArr= [type, table, getNewRole]
+                            res(returnArr)
+                        }
+                        getRole()
                     break;
                     case 'View Employees':
                        type="View"
@@ -56,7 +65,10 @@ const selection=()=> {
                        res(returnArr)
                     break;
                     case 'View Roles':
-                        
+                        type='View'
+                        table='emp_role'
+                        returnArr=[type, table]
+                        res(returnArr)
                     break;
                     case 'View Departments':
                         type="View"

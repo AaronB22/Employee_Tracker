@@ -18,9 +18,9 @@ db.connect((err)=>{
   
 
 })
-const viewTable=(x)=>{
+const viewTable=(table)=>{
     
-    db.query(`select * from ${x}`,(err,res)=>{
+    db.query(`select * from ${table}`,(err,res)=>{
         if(err){
         throw err
         }
@@ -39,7 +39,10 @@ const addData=(table, info)=>{
             db.query(`insert into department(dep_name) value ("${info}")`)
             console.log("added to the database!")
             break;
-            
+        case 'emp_role':
+            console.log('At server')
+            console.log(info)
+            db.query(`insert into emp_role(title, salary) value ("${info[0]}","${info[1]}")`)    
     }
     
 }
@@ -57,7 +60,11 @@ async function getData(){
             addData(res[1],res[2])
         break;
         case 'View':
-            viewTable(res[1],)
+            viewTable(res[1])
+        break;
+
+        case 'Update':
+
         break;
     }
 
