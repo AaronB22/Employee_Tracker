@@ -3,6 +3,7 @@ class Role{
     getRoleInfo(){
         return new Promise((res,rej)=>{
             const inquirer = require("inquirer")
+            const database= require('./server')
             inquirer
             .prompt ([
                 {
@@ -14,6 +15,12 @@ class Role{
                     name:'salary',
                     type:'number',
                     message:'Insert Salary'
+                },
+                {
+                    name:'Dep',
+                    type:'list',
+                    message:"Choose Department",
+                    choices: database.depArr
                 }
             ]).then((ans)=>{
                 if(!ans.salary){
@@ -21,8 +28,12 @@ class Role{
                     this.getRoleInfo()
                 }
                 else {
-
-                 const returnArr= [ans.role, ans.salary]
+                    let id=''
+                    for(let i =0; i<database.depArr.length;i++){
+                        if(ans.Dep===database.depArr[i])
+                        id=i+1
+                    }
+                 const returnArr= [ans.role, ans.salary,id]
                 
                  res(returnArr)
                 }

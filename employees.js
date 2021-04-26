@@ -1,9 +1,9 @@
-
 class Employee{
-  
+    
     getEmployeeData(){
         return new Promise((res, rej)=>{
-
+            
+            const database= require('./server')
             const inquirer= require('inquirer')
             inquirer
             .prompt([
@@ -16,10 +16,22 @@ class Employee{
                     name: 'lastName',
                     type:"input",
                     message:"What is the Employee's last name"
+                },
+                {
+                    name:"dep",
+                    type:'list',
+                    message:'What Department?',
+                    choices:database.roleArr  
                 }
             ]).then((ans)=>{
-
-               const empArr=[ans.firstName,ans.lastName]
+                let id=''
+                for (let i=0; i<database.roleArr.length;i++){
+                    if(ans.dep===database.roleArr[i]){
+                        id=i+1
+                    }
+                }
+               
+               const empArr=[ans.firstName,ans.lastName,id]
                 res(empArr)
                
                

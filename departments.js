@@ -10,6 +10,9 @@ class Departments{
                     type:'input',
                     message:'Insert Department Name:'
                 }
+                
+
+                
             ]).then((ans)=>{
                 res(ans.depName)
             })

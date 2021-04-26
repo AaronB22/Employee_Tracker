@@ -6,7 +6,6 @@ const Role = require('./roles');
 
 
 
-
 const selection=()=> {
     return new Promise((res, rej)=>{
         inquirer
@@ -14,7 +13,7 @@ const selection=()=> {
                 name:'firstSelection',
                 type:'list',
                 choices: ['Add Employee','Add Departments','Add Roles', 'View Employees','View Roles','View Departments','Update Roles'],
-                message:'What Do wan to Do?',
+                message:'What Do want to Do?',
             }]).then((ans)=>{
                 
                 let pickedValue= ans.firstSelection;
