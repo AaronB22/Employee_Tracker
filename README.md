@@ -13,3 +13,6 @@ HOW TO USE:
   6. once done, to start the program run npm start
   7.You will be propmted with a list of actions you can do. Select on to do that action. Recommend create a Department than Role, than employee.
   
+  
+  DEMO VIDEO:
+  [Demo Video](./assets/demo.mp4)
