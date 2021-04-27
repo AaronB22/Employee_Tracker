@@ -52,30 +52,36 @@ const getInfoFromDB=()=>{
 getInfoFromDB()
 const viewTable=(table)=>{
         
-        if(table==='emp_role'||table==='department'){
+        switch (table){
+            case 'employees':
 
-            db.query(`select * from ${table}`,(err,res)=>{
-                if(err){
-                throw err
-                }
-               console.table(res)
-            })
+                db.query(`select employees.id, employees.first_name, employees.last_name, emp_role.title, department.dep_name, emp_role.salary, employees.manager from department
+                join emp_role on department.id=emp_role.department_id
+                join employees on emp_role.id= employees.role_id` ,(err,res)=>{
+                    if (err){
+                        throw err
+                    }
+                    console.table(res)
+                })
+            break;
+            case 'emp_role':
+                db.query(`select  emp_role.id, emp_role.title, emp_role.salary, department.dep_name from emp_role
+                join department on department.id=emp_role.department_id;`,(err,res)=>{
+                    console.table(res)
+                })
+                
+            break;
+            case 'department':
+                db.query(`select * from department`,(err,res)=>{
+                    console.table(res)
+                })
         }
-        else{
-            db.query(`select employees.id, employees.first_name, employees.last_name, emp_role.title, department.dep_name, emp_role.salary, employees.manager from department
-            join emp_role on department.id=emp_role.department_id
-            join employees on emp_role.id= employees.role_id` ,(err,res)=>{
-                if (err){
-                    throw err
-                }
-                console.table(res)
-            })
-        }
+      
        
 }
 
 const addData=(table, info)=>{
-    console.log(info[3])
+  
     switch (table){
         case "employees":
             db.query(`insert into employees (first_name, last_name, role_id, manager) value ("${info[0]}","${info[1]}","${info[2]}","${info[3]}")`)
@@ -83,14 +89,16 @@ const addData=(table, info)=>{
             getData()
             break;
         case "department":
-            console.log(info)
+         
             db.query(`insert into department(dep_name) value ("${info}")`)
+            depArr.push(info)
             console.log("added to the database!")
             getData()
             break;
         case 'emp_role':
             db.query(`insert into emp_role(title, salary, department_id) value ("${info[0]}","${info[1]}","${info[2]}")`) 
             console.log("added to the database!")  
+            roleArr.push(info[0])
             getData()
     }
     
@@ -187,7 +195,7 @@ async function getData(){
             addData(res[1],res[2])
         break;
         case 'View':
-            console.log(res[1])
+           
             viewTable(res[1])
         break;
 
