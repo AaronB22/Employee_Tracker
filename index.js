@@ -76,7 +76,10 @@ const selection=()=> {
                         res(returnArr)
                     break;
                     case 'Update Roles':
-                        
+                        type="Update"
+                        table='emp_role'
+                        returnArr=[type, table]
+                        res(returnArr)
                     break;
                 }
                 
