@@ -62,20 +62,24 @@ const viewTable=(table)=>{
                         throw err
                     }
                     console.table(res)
+                    getData()
                 })
             break;
             case 'emp_role':
                 db.query(`select  emp_role.id, emp_role.title, emp_role.salary, department.dep_name from emp_role
                 join department on department.id=emp_role.department_id;`,(err,res)=>{
                     console.table(res)
+                    getData()
                 })
                 
             break;
             case 'department':
                 db.query(`select * from department`,(err,res)=>{
                     console.table(res)
+                    getData()
                 })
         }
+        
       
        
 }
@@ -86,6 +90,10 @@ const addData=(table, info)=>{
         case "employees":
             db.query(`insert into employees (first_name, last_name, role_id, manager) value ("${info[0]}","${info[1]}","${info[2]}","${info[3]}")`)
             console.log("added to the database!")
+            const addTo=[`${info[0]} ${info[1]}`]
+            empArr.push(addTo)
+       
+            module.exports= {depArr, roleArr, empArr};
             getData()
             break;
         case "department":
