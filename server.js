@@ -68,8 +68,6 @@ const viewTable=(table)=>{
                 if (err){
                     throw err
                 }
-                
-                
                 console.table(res)
             })
         }
@@ -82,16 +80,18 @@ const addData=(table, info)=>{
         case "employees":
             db.query(`insert into employees (first_name, last_name, role_id, manager) value ("${info[0]}","${info[1]}","${info[2]}","${info[3]}")`)
             console.log("added to the database!")
+            getData()
             break;
         case "department":
             console.log(info)
             db.query(`insert into department(dep_name) value ("${info}")`)
             console.log("added to the database!")
+            getData()
             break;
         case 'emp_role':
-            console.log('At server')
-            console.log(info)
-            db.query(`insert into emp_role(title, salary, department_id) value ("${info[0]}","${info[1]}","${info[2]}")`)    
+            db.query(`insert into emp_role(title, salary, department_id) value ("${info[0]}","${info[1]}","${info[2]}")`) 
+            console.log("added to the database!")  
+            getData()
     }
     
 }
@@ -129,6 +129,8 @@ const updateRole=async()=>{
                         }
                     ]).then((ans)=>{
                         db.query(`UPDATE emp_role Set title = "${ans.userChange}" WHERE emp_role.id = ${rolePicked}`)
+                        console.log(`${roleArr[rolePicked -1]} is now ${ans.userChange}`)
+                        getData()
                     })
                 break;
                 case 'salary':
@@ -141,6 +143,8 @@ const updateRole=async()=>{
                         }
                     ]).then((ans)=>{
                         db.query(`UPDATE emp_role Set salary = "${ans.userChange}" WHERE emp_role.id = ${rolePicked}`)
+                        console.log(`${roleArr[rolePicked -1]} salary is now ${ans.userChange}`)
+                        getData()
                     })
                 break;
                 case 'Department':
@@ -159,8 +163,10 @@ const updateRole=async()=>{
                                 id=i+1
                             }
                         }
-                        console.log(id, rolePicked)
+                        
                         db.query(`UPDATE emp_role Set department_id = ${id} WHERE emp_role.id = ${rolePicked}`)
+                        console.log(`${roleArr[rolePicked -1]} is now apart of ${depArr[id-1]}`)
+                        getData()
                     })
                 break;
                 
