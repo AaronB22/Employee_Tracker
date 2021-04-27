@@ -15,4 +15,4 @@ HOW TO USE:
   
   
   DEMO VIDEO:
-  [Demo Video](./assets/demo.mp4)
+  [Demo Video](/assests/demo.mp4)
