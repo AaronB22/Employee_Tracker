@@ -29,8 +29,8 @@ manager varchar(40)
 );
 
 
-insert into employees(first_name, last_name, role_id) value("Kieth", "Supercool",1);
-select * from department;
+
+
 
 select * from employees;
 select * from emp_role;
